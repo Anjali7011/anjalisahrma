@@ -1,3 +1,4 @@
+const bodyParser = require('body-parser');
 const express = require('express');
 const router = express.Router();
 
@@ -158,49 +159,91 @@ const router = express.Router();
 //     }
 //     res.send( {data: finalArr , status: true})
 // })
-let persons= [
-    {
-    name: "PK",
-    age: 10,
-    votingStatus: false
- },
- {
-    name: "SK",
-    age: 20,
-    votingStatus: false
- },
- {
-    name: "AA",
-    age: 70,
-    votingStatus: false
- },
- {
-    name: "SC",
-    age: 5,
-    votingStatus: false
- },
- {
-    name: "HO",
-    age: 40,
-    votingStatus: false
- }
- ]
+// let persons= [
+//     {
+//     name: "PK",
+//     age: 10,
+//     votingStatus: false
+//  },
+//  {
+//     name: "SK",
+//     age: 20,
+//     votingStatus: false
+//  },
+//  {
+//     name: "AA",
+//     age: 70,
+//     votingStatus: false
+//  },
+//  {
+//     name: "SC",
+//     age: 5,
+//     votingStatus: false
+//  },
+//  {
+//     name: "HO",
+//     age: 40,
+//     votingStatus: false
+//  }
+//  ]
  
    
-router.post('/person',function(req,res){
-    const votingAge=req.query.votingAge
+// router.post('/person',function(req,res){
+//     const votingAge=req.query.votingAge
 
-    const updatedPersons =[]
-    persons.forEach((person) => {
-        if(person.age>votingAge){
-            person.votingStatus=true
-            updatedPersons.push(person)
-        }
+//     const updatedPersons =[]
+//     persons.forEach((person) => {
+//         if(person.age>votingAge){
+//             person.votingStatus=true
+//             updatedPersons.push(person)
+//         }
         
-    });
-    return res.send({updatedPersons:updatedPersons})
+//     });
+//     return res.send({updatedPersons:updatedPersons})
 
-})
+// })
+//e.g. the players array would look like this:
+let players =
+   [
+       {
+           "name": "manish",
+           "dob": "1/1/1995",
+           "gender": "male",
+           "city": "jalandhar",
+           "sports": [
+               "swimming"
+           ]
+       },
+       {
+           "name": "gopal",
+           "dob": "1/09/1995",
+           "gender": "male",
+           "city": "delhi",
+           "sports": [
+               "soccer"
+           ]
+       },
+       {
+           "name": "lokesh",
+           "dob": "1/1/1990",
+           "gender": "male",
+           "city": "mumbai",
+           "sports": [
+               "soccer"
+           ]
+       },
+   ]
+   router.post('/players',function(req,res){
+    const body=req.body
+const playerDetail =players.find(player=>player.name===body.name)
+
+if(playerDetail){
+    res.send({message:"player already exist"})
+}else{
+    players.push(body)
+    res.send(players)
+}
+   })
 
 
 
